@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TrabalhoPW.Models.Tratamento>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Objeto.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Objeto.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.TratID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.TratID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.TratID })
+            </td>
+        </tr>
+    }
+    
+    </table>

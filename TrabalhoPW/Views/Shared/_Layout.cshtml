@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index")</li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Gestão de Contas
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Ver/Editar", "Index", "Utilizadors")</li>
+                                    <li>@Html.ActionLink("Validar", "Validar", "Utilizadors")</li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Objetos
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Criar", "Create", "Objetoes")</li>
+                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Objetoes")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Tratamentos
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Criar", "Create", "Tratamentos")</li>
+                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Tratamentos")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Aluguers
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
+                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Aluguers")</li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("Especialista") || User.IsInRole("Membro"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Perfil
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Ver Perfil", "Details", "Utilizadors")</li>
+                                    <li>@Html.ActionLink("Editar", "Edit", "Utilizadors")</li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Mensagens
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Criar", "Create", "Mensagens")</li>
+                                    <li>@Html.ActionLink("Caixa de Entrada", "Index", "Mensagens")</li>
+                                    <li>@Html.ActionLink("Caixa de Saida", "Sent", "Mensagens")</li>
+                                </ul>
+                            </li>
+                        }
+                        if (User.IsInRole("Membro"))
+                        {
+                            <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                            <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Aluguers
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Verificar Historico", "Index", "Aluguers ")</li>
+                                    <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
+                                </ul>
+                            </li>
+
+                        }
+                    }
+                    else
+                    {
+
+                        <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
+
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

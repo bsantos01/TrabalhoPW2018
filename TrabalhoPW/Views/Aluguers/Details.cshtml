@@ -1,0 +1,91 @@
+﻿@model TrabalhoPW.Models.Aluguer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aluguer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Objeto.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Objeto.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Requerente.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Requerente.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataIncio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataIncio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataFim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataFim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finalidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finalidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Validado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Validado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoI)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoI)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstadoF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstadoF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Relatorio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Relatorio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AluguerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
