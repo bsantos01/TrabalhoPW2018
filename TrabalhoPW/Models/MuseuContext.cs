@@ -25,6 +25,7 @@ namespace TrabalhoPW.Models
         public DbSet<Objeto> Objeto { get; set; }
         public DbSet<Tratamento> Tratamento { get; set; }
         public DbSet<Utilizador> Utilizador { get; set; }
+        public DbSet<Texts> Texts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

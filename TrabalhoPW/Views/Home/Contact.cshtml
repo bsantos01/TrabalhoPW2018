@@ -1,15 +1,12 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model TrabalhoPW.Models.Texts
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@{
+    ViewBag.Title = "Contactos";
+}
+<h2>@Model.SubT</h2>
+<h3></h3>
+
+<p>@Model.Conteudo</p>
 
 <address>
     <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />

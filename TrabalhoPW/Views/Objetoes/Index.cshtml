@@ -5,54 +5,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Lista de Objectos</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Periodo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zona)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Origem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Periodo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zona)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Origem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ObjID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ObjID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ObjID })
-        </td>
-    </tr>
+@if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
 }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zona)
+            </th>
+            @if (User.IsInRole("Admin") || User.IsInRole("Especialista") || User.IsInRole("Membro"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Origem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+            }
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Periodo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Zona)
+                </td>
+                @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Origem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                }
+                <td>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ObjID })<a> | </a>@Html.ActionLink("Delete", "Delete", new { id = item.ObjID }) <a> | </a>} @Html.ActionLink("Details", "Details", new { id = item.ObjID })
+                </td>
+            </tr>
+        }
+
+    </table>

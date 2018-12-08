@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -12,9 +13,11 @@ namespace TrabalhoPW
 {
     public partial class Startup
     {
+        MuseuContext context;
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -64,8 +67,27 @@ namespace TrabalhoPW
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            context = new MuseuContext();
             CreateRoles();
+            SetContext();
+        }
 
+        private void SetContext()
+        {
+            if (!context.Texts.Any()) {
+
+                Texts home = new Texts();
+                home.Pagina = "HomePage";
+                home.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
+                home.Conteudo = "Exemplo de Conteudo de texto.";
+                Texts contactos = new Texts();
+                contactos.Pagina = "Contactos";
+                contactos.SubT = "Nao deixe de nos contactar ou até mesmo fazer uma visita!";
+                contactos.Conteudo = "Exemplo de Conteudo de texto.";
+                context.Texts.Add(home);
+                context.Texts.Add(contactos);
+                context.SaveChanges();
+            }
         }
 
         private void CreateRoles()

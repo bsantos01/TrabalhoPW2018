@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Museu XPTO", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -40,6 +40,16 @@
                         }
                         if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
                         {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    Gestão de Conteudos
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Editar HomePage", "EditH", "Home")</li>
+                                    <li>@Html.ActionLink("Editar Contactos", "EditC", "Home")</li>
+                                </ul>
+                            </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown">
                                     Objetos
@@ -81,7 +91,7 @@
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Ver Perfil", "Details", "Utilizadors")</li>
                                     <li>@Html.ActionLink("Editar", "Edit", "Utilizadors")</li>
-                                    
+
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -119,7 +129,7 @@
                         <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
 
                     }
-
+                    <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

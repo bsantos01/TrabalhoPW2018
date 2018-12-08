@@ -217,6 +217,10 @@
     <Compile Include="Migrations\201812071501096_museu.Designer.cs">
       <DependentUpon>201812071501096_museu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812080230350_texts.cs" />
+    <Compile Include="Migrations\201812080230350_texts.Designer.cs">
+      <DependentUpon>201812080230350_texts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Aluguer.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\MuseuContext.cs" />
     <Compile Include="Models\Objeto.cs" />
+    <Compile Include="Models\Texts.cs" />
     <Compile Include="Models\Tratamento.cs" />
     <Compile Include="Models\Utilizador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -266,7 +271,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -315,6 +319,8 @@
     <Content Include="Views\Utilizadors\Index.cshtml" />
     <Content Include="Views\Utilizadors\Validar.cshtml" />
     <Content Include="Views\Utilizadors\Delete.cshtml" />
+    <Content Include="Views\Home\EditC.cshtml" />
+    <Content Include="Views\Home\EditH.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812071501096_museu.resx">
       <DependentUpon>201812071501096_museu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812080230350_texts.resx">
+      <DependentUpon>201812080230350_texts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
