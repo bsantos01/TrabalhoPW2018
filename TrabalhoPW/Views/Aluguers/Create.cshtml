@@ -48,16 +48,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Validado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Validado)
-                    @Html.ValidationMessageFor(model => model.Validado, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
+        @if (User.IsInRole("Admin") || User.IsInRole("Especialista")) { 
         <div class="form-group">
             @Html.LabelFor(model => model.RequerenteID, "RequerenteID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -73,22 +64,9 @@
                 @Html.ValidationMessageFor(model => model.EstadoI, "", new { @class = "text-danger" })
             </div>
         </div>
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EstadoF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.EstadoF, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EstadoF, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Relatorio, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Relatorio, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Relatorio, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

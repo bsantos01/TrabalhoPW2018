@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index")</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
                     @if (Request.IsAuthenticated)
                     {
@@ -77,7 +77,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
-                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Aluguers")</li>
+                                    <li>@Html.ActionLink("Ver Todos", "Index", "Aluguers", new { flag = 0 }, null)</li>
+                                    <li>@Html.ActionLink("Receber Artigo", "Index", "Aluguers", new { flag = 4 }, null)</li>
+                                    <li>@Html.ActionLink("Relatorio de Entrega", "Index", "Aluguers", new { flag = 1 }, null)</li>
+                                    <li>@Html.ActionLink("Prazos Expirados", "Index", "Aluguers", new { flag = 3 }, null)</li>
+                                        @if(User.IsInRole("Admin")){
+                                            <li>@Html.ActionLink("Validar Aluguer", "Index", "Aluguers", new { flag = 2 }, null)</li>
+                                        }
+
                                 </ul>
                             </li>
                         }

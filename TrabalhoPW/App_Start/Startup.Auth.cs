@@ -92,10 +92,10 @@ namespace TrabalhoPW
 
         private void CreateRoles()
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            ApplicationDbContext contextt = new ApplicationDbContext();
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(contextt));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(contextt));
 
             if (!roleManager.RoleExists("Admin"))
             {
@@ -107,8 +107,11 @@ namespace TrabalhoPW
                     UserName = "admin",
                     Email = "pw@isec.pt"
                 };
+
                 string userPWD = "Pass01!";
                 var chkUser = UserManager.Create(user, userPWD);
+                Utilizador admin = new Utilizador() { Nome = "admin", Email = "pw@isec.pt", BI = 1, NIF = 1, Tipo = "Admin", Valido = true, UserID = UserManager.FindByName("admin").Id };
+                context.Utilizador.Add(admin);
                 if (chkUser.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");

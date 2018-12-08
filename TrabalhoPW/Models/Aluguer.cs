@@ -30,7 +30,6 @@ namespace TrabalhoPW.Models
         [Display(Name = "Data Final do Aluguer")]
         public DateTime? DataFim { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data Entrega")]
