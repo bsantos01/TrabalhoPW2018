@@ -1,15 +1,19 @@
 ﻿@model IEnumerable<TrabalhoPW.Models.Aluguer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Validate";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Validate</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if(ViewBag.error!= null) { 
+<div class="validation-summary-errors text-danger">
+    <ul>
+        <li>@ViewBag.error</li>
+    </ul>
+</div>
+}
 <table class="table">
     <tr>
         <th>
@@ -25,6 +29,9 @@
             @Html.DisplayNameFor(model => model.DataFim)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.DataEntrega)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Finalidade)
         </th>
         <th>
@@ -32,9 +39,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EstadoI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataEntrega)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.EstadoF)
@@ -60,6 +64,9 @@
             @Html.DisplayFor(modelItem => item.DataFim)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.DataEntrega)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Finalidade)
         </td>
         <td>
@@ -69,21 +76,14 @@
             @Html.DisplayFor(modelItem => item.EstadoI)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataEntrega)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.EstadoF)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Relatorio)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.AluguerID }) 
-            @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
-            {
-                <a> | </a>  @Html.ActionLink("Edit", "Edit", new { id = item.AluguerID }) <a> | </a>
-                 @Html.ActionLink("Delete", "Delete", new { id = item.AluguerID })
-            }
+            @Html.ActionLink("Validar", "Validate", new { id=item.AluguerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AluguerID })
         </td>
     </tr>
 }

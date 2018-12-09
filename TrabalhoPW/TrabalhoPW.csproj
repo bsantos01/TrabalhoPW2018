@@ -325,6 +325,7 @@
     <Content Include="Views\Utilizadors\Delete.cshtml" />
     <Content Include="Views\Home\EditC.cshtml" />
     <Content Include="Views\Home\EditH.cshtml" />
+    <Content Include="Views\Aluguers\ValidateList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

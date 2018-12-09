@@ -15,7 +15,7 @@ namespace TrabalhoPW.Controllers
         private MuseuContext db = new MuseuContext();
 
         // GET: Aluguers
-        [Authorize(Roles = "Especialista, Admin")]
+        [Authorize]
         public ActionResult Index(int flag)
         {
             var aluguer= db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente);
@@ -24,33 +24,63 @@ namespace TrabalhoPW.Controllers
                     return View(aluguer.ToList());
 
                 case 1: //lista de alugueres ja entregues a aguardar avaliação
-                    aluguer = db.Aluguer.Where(m => m.DataEntrega != null && m.Validado == true && m.EstadoF==null);
+                    aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.DataEntrega != null && m.Validado && m.EstadoF==0);
                     return View(aluguer.ToList());
 
                 case 2: //lista de Alugueres por validar
-                    aluguer = db.Aluguer.Where(m => m.Validado == false);
-                    return View(aluguer.ToList());
+                    return RedirectToAction("ValidateList");
 
                 case 3: //lista de Alugueres com prazo expirado
-                    aluguer = db.Aluguer.Where(m => m.DataFim < DateTime.Today);
+                    aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.DataFim < DateTime.Today && m.Validado && m.DataEntrega == null);
                     return View(aluguer.ToList());
 
                 case 4: //lista de Alugueres a decorrer
-                    aluguer = db.Aluguer.Where(m => m.DataEntrega == null && m.Validado==true);
+                    aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.DataEntrega == null && m.Validado==true);
+                    return View(aluguer.ToList());
+                case 5:
+                    aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.Requerente.Nome == User.Identity.Name);
                     return View(aluguer.ToList());
                 default:
                     return View();
             }
         }
-        [Authorize]
-        public ActionResult Historico()
-        {
-            var aluguer = db.Aluguer.Where(m => m.Requerente.Nome == User.Identity.Name);
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ValidateList(int? i) {
+
+            if (i != null)
+            {
+                ViewBag.error="Impossivel validar Aluguer por indisponibilidade de Datas.";
+            }
+            var aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.Validado == false);
             return View(aluguer.ToList());
         }
 
-            // GET: Aluguers/Details/5
-            public ActionResult Details(int? id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Validate(int id)
+        {
+            Aluguer data = (Aluguer)db.Aluguer.Where(m => m.AluguerID == id).First();
+            var list = db.Aluguer.Where(m => m.Validado).ToList();
+            foreach (Aluguer item in list)
+            {
+                if ((data.DataIncio >= item.DataIncio && data.DataIncio <= item.DataFim)
+                    || (data.DataFim >= data.DataIncio && data.DataFim <= item.DataFim))
+                {
+                    
+                    return RedirectToAction("ValidateList", new { i=0});
+
+                }
+            }
+            data.Validado = true;
+            db.SaveChanges();
+
+
+            return RedirectToAction("ValidateList");
+        }
+
+
+        // GET: Aluguers/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -68,8 +98,13 @@ namespace TrabalhoPW.Controllers
         [Authorize]
         public ActionResult Create()
         {
+
             ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
-            ViewBag.RequerenteID = new SelectList(db.Utilizador, "UtilizadorID", "Nome");
+            ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m=> m.Tipo != "Admin" || m.Tipo != "Especialista"), "UtilizadorID", "Nome");
+            if (User.IsInRole("Membro"))
+            {
+                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name), "UtilizadorID", "Nome");
+            }
             return View();
         }
 
@@ -82,6 +117,18 @@ namespace TrabalhoPW.Controllers
         {
             if (ModelState.IsValid)
             {
+                var list = db.Aluguer.Where(m => m.Validado).ToList();
+                foreach (Aluguer item in list)
+                {
+                    if((aluguer.DataIncio >= item.DataIncio && aluguer.DataIncio<= item.DataFim)
+                        || (aluguer.DataFim >= aluguer.DataIncio && aluguer.DataFim <= item.DataFim))
+                    {
+                        ModelState.AddModelError("", "Data Indisponivel para emprestimo");
+                        ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m=> m.UtilizadorID == aluguer.RequerenteID), "UtilizadorID", "Nome");
+                        ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
+                        return View(aluguer);
+                    }
+                }
                 db.Aluguer.Add(aluguer);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { flag=0});
@@ -116,14 +163,21 @@ namespace TrabalhoPW.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AluguerID,ObjID,DataIncio,DataFim,Finalidade,Validado,RequerenteID,EstadoI,EstadoF,Relatorio")] Aluguer aluguer)
+        public ActionResult Edit([Bind(Include = "AluguerID,ObjID,DataIncio,DataFim,DataEntrega,Finalidade,Validado,RequerenteID,EstadoI,EstadoF,Relatorio")] Aluguer aluguer)
         {
             Aluguer data = (Aluguer)db.Aluguer.Where(m => m.AluguerID == aluguer.AluguerID).First();
-                data.Validado = aluguer.Validado;
+            data.DataEntrega = aluguer.DataEntrega;
+            data.EstadoF = aluguer.EstadoF;
+            data.Relatorio = aluguer.Relatorio;
+
+            if(aluguer.DataEntrega!=null)
+            {
+                data.DataEntrega = aluguer.DataEntrega;
+            }
 
             db.SaveChanges();
-                return RedirectToAction("Index");
-            
+            return RedirectToAction("Index", new { flag = 0 });
+
 
         }
 
@@ -151,7 +205,7 @@ namespace TrabalhoPW.Controllers
             Aluguer aluguer = db.Aluguer.Find(id);
             db.Aluguer.Remove(aluguer);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { flag = 0 });
         }
 
         protected override void Dispose(bool disposing)
