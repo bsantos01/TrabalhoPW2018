@@ -1,157 +1,222 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ink &mdash; Free Website Template, Free HTML5 Template by freehtml5.co</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">	 -->
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="/css/flexslider.css">
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Modernizr JS -->
+    <script src="~/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Museu XPTO", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+    <div class="fh5co-loader"></div>
+
+    <div id="page">
+        <nav class="fh5co-nav" role="navigation">
+            <div class="top-menu">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <div id="fh5co-logo"><a href="index.html">Museu <span>XPTO</span></a></div>
+                        </div>
+                        <div class="col-xs-10 text-right menu-1">
+                            <ul>
+                                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Gestão de Contas
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Ver/Editar", "Index", "Utilizadors")</li>
+                                                <li>@Html.ActionLink("Validar", "Validar", "Utilizadors")</li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Gestão de Conteudos
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Editar HomePage", "EditH", "Home")</li>
+                                                <li>@Html.ActionLink("Editar Contactos", "EditC", "Home")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Objetos
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Criar", "Create", "Objetoes")</li>
+                                                <li>@Html.ActionLink("Editar/Eliminar", "Index", "Objetoes")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Tratamentos
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Criar", "Create", "Tratamentos")</li>
+                                                <li>@Html.ActionLink("Editar/Eliminar", "Index", "Tratamentos")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Aluguers
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
+                                                <li>@Html.ActionLink("Ver Todos", "Index", "Aluguers", new { flag = 0 }, null)</li>
+                                                <li>@Html.ActionLink("Receber Artigo", "Index", "Aluguers", new { flag = 4 }, null)</li>
+                                                <li>@Html.ActionLink("Relatorio de Entrega", "Index", "Aluguers", new { flag = 1 }, null)</li>
+                                                <li>@Html.ActionLink("Prazos Expirados", "Index", "Aluguers", new { flag = 3 }, null)</li>
+                                                @if (User.IsInRole("Admin"))
+                                                {
+                                                    <li>@Html.ActionLink("Validar Aluguer", "Index", "Aluguers", new { flag = 2 }, null)</li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    if (User.IsInRole("Especialista") || User.IsInRole("Membro"))
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Perfil
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Ver Perfil", "Details", "Utilizadors")</li>
+                                                <li>@Html.ActionLink("Editar", "Edit", "Utilizadors")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Mensagens
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Criar", "Create", "Mensagens")</li>
+                                                <li>@Html.ActionLink("Caixa de Entrada", "Index", "Mensagens")</li>
+                                                <li>@Html.ActionLink("Caixa de Saida", "Sent", "Mensagens")</li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    if (User.IsInRole("Membro"))
+                                    {
+                                        <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
+                                        <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Aluguers
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Verificar Historico", "Index", "Aluguers", new { flag = 5 }, null)</li>
+                                                <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
+                                            </ul>
+                                        </li>
+
+                                    }
+                                }
+                                else
+                                {
+
+                                    <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
+
+                                }
+                                <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
+
+                                @Html.Partial("_LoginPartial")
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        </nav>
 
-                    @if (Request.IsAuthenticated)
-                    {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Gestão de Contas
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Ver/Editar", "Index", "Utilizadors")</li>
-                                    <li>@Html.ActionLink("Validar", "Validar", "Utilizadors")</li>
-                                </ul>
-                            </li>
-                        }
-                        if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
-                        {
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Gestão de Conteudos
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Editar HomePage", "EditH", "Home")</li>
-                                    <li>@Html.ActionLink("Editar Contactos", "EditC", "Home")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Objetos
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Criar", "Create", "Objetoes")</li>
-                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Objetoes")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Tratamentos
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Criar", "Create", "Tratamentos")</li>
-                                    <li>@Html.ActionLink("Editar/Eliminar", "Index", "Tratamentos")</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Aluguers
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
-                                    <li>@Html.ActionLink("Ver Todos", "Index", "Aluguers", new { flag = 0 }, null)</li>
-                                    <li>@Html.ActionLink("Receber Artigo", "Index", "Aluguers", new { flag = 4 }, null)</li>
-                                    <li>@Html.ActionLink("Relatorio de Entrega", "Index", "Aluguers", new { flag = 1 }, null)</li>
-                                    <li>@Html.ActionLink("Prazos Expirados", "Index", "Aluguers", new { flag = 3 }, null)</li>
-                                        @if(User.IsInRole("Admin")){
-                                            <li>@Html.ActionLink("Validar Aluguer", "Index", "Aluguers", new { flag = 2 }, null)</li>
-                                        }
-
-                                </ul>
-                            </li>
-                        }
-                        if (User.IsInRole("Especialista") || User.IsInRole("Membro"))
-                        {
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Perfil
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Ver Perfil", "Details", "Utilizadors")</li>
-                                    <li>@Html.ActionLink("Editar", "Edit", "Utilizadors")</li>
-
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Mensagens
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Criar", "Create", "Mensagens")</li>
-                                    <li>@Html.ActionLink("Caixa de Entrada", "Index", "Mensagens")</li>
-                                    <li>@Html.ActionLink("Caixa de Saida", "Sent", "Mensagens")</li>
-                                </ul>
-                            </li>
-                        }
-                        if (User.IsInRole("Membro"))
-                        {
-                            <li>@Html.ActionLink("Perfil", "Index", "Perfil")</li>
-                            <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    Aluguers
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Verificar Historico", "Index", "Aluguers", new { flag = 5}, null)</li>
-                                    <li>@Html.ActionLink("Criar", "Create", "Aluguers")</li>
-                                </ul>
-                            </li>
-
-                        }
-                    }
-                    else
-                    {
-
-                        <li>@Html.ActionLink("Objetos", "Index", "Objetoes")</li>
-
-                    }
-                    <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        <footer id="fh5co-footer" role="contentinfo">
+
+            <div class="row copyright">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <small class="block">&copy; 2018 Bruno Santos &Aacute; Fernando Alves. All Rights Reserved.</small>
+                        <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a></small>
+                    </p>
+                </div>
+            </div>
+  
+         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="~/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <!-- Flexslider -->
+    <script src="~/js/jquery.flexslider-min.js"></script>
+    <!-- Magnific Popup -->
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/magnific-popup-options.js"></script>
+    <!-- Main -->
+    <script src="~/js/main.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

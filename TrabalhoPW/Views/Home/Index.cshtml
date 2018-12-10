@@ -1,22 +1,77 @@
-﻿@model TrabalhoPW.Models.Texts
+﻿@model IEnumerable<TrabalhoPW.Models.Texts>
 
 @{
     ViewBag.Title = "HomePage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>Museu XPTO de Cenas</h1>
-    <p class="lead">Veja o nosso espolio!</p>
-    <p><a href="~/Objetoes/Index" class="btn btn-primary btn-lg">Ver Mais</a></p>
+
+
+
+
+<aside id="fh5co-hero" class="js-fullheight">
+    <div class="flexslider js-fullheight">
+        <ul class="slides">
+            <li style="background-image: url(images/img_bg_1.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text slider-text-bg">
+                            <div class="slider-text-inner">
+                                <h1>@Model.ElementAt(0).SubT</h1>
+                                <h2>@Model.ElementAt(0).Conteudo</h2>
+                                <p class="ct"><a href="~/Objetoes/Index" class="btn btn-primary btn-lg">Ver Mais</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(images/img_bg_2.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text slider-text-bg">
+                            <div class="slider-text-inner">
+                                <h1>@Model.ElementAt(1).SubT</h1>
+                                <h2>@Model.ElementAt(1).Conteudo</h2>
+                                <p class="ct"><a href="#">Learn More <i class="icon-arrow-right"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="background-image: url(images/img_bg_3.jpg);">
+                <div class="overlay-gradient"></div>
+                <div class="container-fluids">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text slider-text-bg">
+                            <div class="slider-text-inner">
+                                <h1>@Model.ElementAt(2).SubT</h1>
+                                <h2>@Model.ElementAt(2).Conteudo</h2>
+                                <p class="ct"><a href="#">Learn More <i class="icon-arrow-right"></i></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>
+<div id="fh5co-content">
+    <div class="video fh5co-video" style="background-image: url(images/video.jpg);">
+        <div class="overlay"></div>
+    </div>
+    <div class="choose animate-box">
+        <div class="fh5co-heading">
+            <h2>Museu XPTO de Cenas</h2>
+            <p>Além de poder ver todo o nosso espolio poderá ainda registar-se gratuitamente para requisitar uma das nossas peças! Vantagens de estar registado? </p>
+        </div>
+        <ul class="list-nav">
+            <li><i class="icon-check2"></i>Consultar detalhadamente qualquer peça.</li>
+            <li><i class="icon-check2"></i>Requisitar uma peça para uma exposição ou outro tipo de finalidade.</li>
+            <li><i class="icon-check2"></i>Comunicar directamente com os nossos especialistas.</li>
+        </ul>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>@Model.SubT</h2>
-        <p>
-            @Model.Conteudo
-        </p>
 
-
-    </div>

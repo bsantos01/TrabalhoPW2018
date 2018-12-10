@@ -13,8 +13,8 @@ namespace TrabalhoPW.Controllers
 
         public ActionResult Index()
         {
-            Texts home = (db.Texts.Where(m => m.Pagina == "HomePage").First());
-            return View(home);
+            var cont = (db.Texts.Where(m => m.Pagina.Contains("HomePage")));
+            return View(cont.ToList());
         }
 
         public ActionResult Contact()
@@ -31,8 +31,8 @@ namespace TrabalhoPW.Controllers
         [Authorize(Roles = "Admin, Especialista")]
         public ActionResult EditH()
         {
-            var cont = (db.Texts.Where(m => m.Pagina == "HomePage").First());
-            return View(cont);
+            var cont = (db.Texts.Where(m => m.Pagina.Contains("HomePage")));
+            return View(cont.ToList());
         }
 
         [HttpPost]
@@ -48,9 +48,17 @@ namespace TrabalhoPW.Controllers
 
             return RedirectToAction("Contact");
         }
+
+
+        public ActionResult Edit(int id) {
+
+            Texts text = db.Texts.Find(id);
+
+            return View(text);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditH([Bind(Include = "Pagina,SubT,Conteudo")] Texts T)
+        public ActionResult Edit([Bind(Include = "Pagina,SubT,Conteudo")] Texts T)
         {
 
             var text = db.Texts.First(a => a.Pagina == "HomePage");

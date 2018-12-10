@@ -28,16 +28,16 @@
             @Html.DisplayNameFor(model => model.Finalidade)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Validado)
+                Vald
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstadoI)
+            E. Inicial
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataEntrega)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EstadoF)
+            E. Final
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Relatorio)
@@ -81,8 +81,7 @@
             @Html.ActionLink("Details", "Details", new { id = item.AluguerID }) 
             @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
             {
-                <a> | </a>  @Html.ActionLink("Edit", "Edit", new { id = item.AluguerID }) <a> | </a>
-                 @Html.ActionLink("Delete", "Delete", new { id = item.AluguerID })
+                <a>|</a>  @Html.ActionLink("Edit", "Edit", new { id = item.AluguerID }) <a>|</a> @Html.ActionLink("Delete", "Delete", new { id = item.AluguerID })
             }
         </td>
     </tr>
