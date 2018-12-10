@@ -21,6 +21,7 @@ namespace TrabalhoPW.Controllers
         }
 
         // GET: Objetoes/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,6 +36,13 @@ namespace TrabalhoPW.Controllers
             return View(objeto);
         }
 
+        [Authorize]
+        public ActionResult Disp(int id) {
+
+            var l = db.Aluguer.Include(m=> m.Objeto).Where(a=> a.Validado && a.ObjID== id);
+
+            return View(l.ToList());
+        }
         // GET: Objetoes/Create
         [Authorize(Roles = "Especialista, Admin")]
         public ActionResult Create()

@@ -96,15 +96,22 @@ namespace TrabalhoPW.Controllers
 
         // GET: Aluguers/Create
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-
-            ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
-            ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m=> m.Tipo != "Admin" || m.Tipo != "Especialista"), "UtilizadorID", "Nome");
+            if (id != null) {
+                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name), "UtilizadorID", "Nome");
+                ViewBag.ObjID = new SelectList(db.Objeto.Where(o=> o.ObjID == id), "ObjID", "Tipo");
+                return View();
+            }
             if (User.IsInRole("Membro"))
             {
                 ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name), "UtilizadorID", "Nome");
             }
+            else {
+                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" || m.Tipo != "Especialista"), "UtilizadorID", "Nome");
+            }
+            ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
+
             return View();
         }
 

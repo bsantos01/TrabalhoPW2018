@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TrabalhoPW.Models.Aluguer>
+
+@{
+    ViewBag.Title = "Disp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Disponibilidade do objeto @Model.ElementAt(0).Objeto.Tipo</h2>
+
+<p>
+    As datas abaixo encontram-se disponiveis para alugar o objeto.
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DataIncio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFim)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataIncio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFim)
+            </td>
+        </tr>
+
+    }
+
+</table>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

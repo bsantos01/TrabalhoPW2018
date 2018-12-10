@@ -24,11 +24,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Zona)
             </th>
-            @if (User.IsInRole("Admin") || User.IsInRole("Especialista") || User.IsInRole("Membro"))
+            @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
             {
                 <th>
                     @Html.DisplayNameFor(model => model.Origem)
                 </th>
+            }
+            @if (User.Identity.IsAuthenticated) {  
                 <th>
                     @Html.DisplayNameFor(model => model.Descricao)
                 </th>
@@ -38,32 +40,47 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Periodo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona)
+            </td>
+            @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Tipo)
+                    @Html.DisplayFor(modelItem => item.Origem)
                 </td>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.Periodo)
+                    @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zona)
-                </td>
+            }
+            <td>
+
                 @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
                 {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Origem)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Descricao)
-                    </td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ObjID })<a> | </a>@Html.ActionLink("Delete", "Delete", new { id = item.ObjID }) <a> | </a>
                 }
-                <td>
+                else if (User.IsInRole("Membro"))
+                {
+                    @Html.ActionLink("Disponibilidade", "Disp", new { id = item.ObjID })<a> | </a>
+                    @Html.ActionLink("Alugar", "Create", "Aluguers", new { id = item.ObjID }, null)<a> | </a>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.ObjID })
+                }
 
-                    @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ObjID })<a> | </a>@Html.ActionLink("Delete", "Delete", new { id = item.ObjID }) <a> | </a>} @Html.ActionLink("Details", "Details", new { id = item.ObjID })
-                </td>
-            </tr>
+
+            </td>
+        </tr>
         }
 
     </table>

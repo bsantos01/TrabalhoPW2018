@@ -61,7 +61,7 @@ namespace TrabalhoPW.Controllers
         public ActionResult Edit([Bind(Include = "Pagina,SubT,Conteudo")] Texts T)
         {
 
-            var text = db.Texts.First(a => a.Pagina == "HomePage");
+            var text = db.Texts.First(a => a.Pagina == T.Pagina);
             text.SubT = T.SubT;
             text.Conteudo = T.Conteudo;
             db.SaveChanges();
