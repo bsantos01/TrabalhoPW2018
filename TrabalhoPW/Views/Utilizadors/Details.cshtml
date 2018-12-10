@@ -66,11 +66,13 @@
         <dd>
             @Html.DisplayFor(model => model.UserID)
         </dd>
-        <dd>
-            @Html.DisplayFor(model => model.Feedback) %
-        </dd>
+        @if(User.IsInRole("Membro")){
+            <dd>
+                @Html.DisplayFor(model => model.Feedback) %
+            </dd>
+            }
 
-    </dl>
+        </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.UtilizadorID }) 
