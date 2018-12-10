@@ -81,13 +81,13 @@ namespace TrabalhoPW
                 home.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
                 home.Conteudo = "Exemplo de Conteudo de texto.";
                 Texts home2 = new Texts();
-                home.Pagina = "HomePage1";
-                home.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
-                home.Conteudo = "Exemplo de Conteudo de texto.";
+                home2.Pagina = "HomePage1";
+                home2.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
+                home2.Conteudo = "Exemplo de Conteudo de texto.";
                 Texts home3 = new Texts();
-                home.Pagina = "HomePage2";
-                home.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
-                home.Conteudo = "Exemplo de Conteudo de texto.";
+                home3.Pagina = "HomePage2";
+                home3.SubT = "Bem Vindo ao Museu XPTO de Cenas!";
+                home3.Conteudo = "Exemplo de Conteudo de texto.";
 
                 Texts contactos = new Texts();
                 contactos.Pagina = "Contactos";
