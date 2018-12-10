@@ -39,6 +39,9 @@ namespace TrabalhoPW.Models
         [Required]
         public bool Valido{ get; set; }
 
+        [Range(0, 100.00)]
+        [Display(Name = "Feedback de Utilizador")]
+        public decimal Feedback { get; set; }
 
        // [ForeignKey("ApplicationUser")]
         public string UserID { get; set; }

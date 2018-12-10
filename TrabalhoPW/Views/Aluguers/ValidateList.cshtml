@@ -29,22 +29,10 @@
             @Html.DisplayNameFor(model => model.DataFim)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DataEntrega)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Finalidade)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Validado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoI)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Relatorio)
+            @Html.DisplayNameFor(model => model.Requerente.Feedback)
         </th>
         <th></th>
     </tr>
@@ -64,22 +52,11 @@
             @Html.DisplayFor(modelItem => item.DataFim)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DataEntrega)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Finalidade)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Validado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Relatorio)
+            @Html.DisplayFor(modelItem => item.Requerente.Feedback)
         </td>
         <td>
             @Html.ActionLink("Validar", "Validate", new { id=item.AluguerID }) |

@@ -173,7 +173,6 @@ namespace TrabalhoPW.Controllers
         public ActionResult Edit([Bind(Include = "AluguerID,ObjID,DataIncio,DataFim,DataEntrega,Finalidade,Validado,RequerenteID,EstadoI,EstadoF,Relatorio")] Aluguer aluguer)
         {
             Aluguer data = (Aluguer)db.Aluguer.Where(m => m.AluguerID == aluguer.AluguerID).First();
-            data.DataEntrega = aluguer.DataEntrega;
             data.EstadoF = aluguer.EstadoF;
             data.Relatorio = aluguer.Relatorio;
 
@@ -183,6 +182,31 @@ namespace TrabalhoPW.Controllers
             }
 
             db.SaveChanges();
+
+            if (data.EstadoF != 0 && data.DataEntrega != null)
+            {
+                var lista = db.Aluguer.Where(m => m.RequerenteID == data.RequerenteID).ToList();
+                int points = 0, c = 0; ;
+                foreach(Aluguer a in lista)
+                {
+
+                    if (a.DataEntrega != null && a.EstadoF != 0)
+                    {
+                        c++;
+                        if (a.DataEntrega != null && a.DataEntrega < a.DataFim && a.EstadoF >= a.EstadoI)
+                        {
+                            points++;
+                        }
+                    }
+                }
+                decimal feed = (points * 100) / c;
+                decimal.Round(feed, 2, MidpointRounding.AwayFromZero);
+                Utilizador user = (Utilizador)db.Utilizador.Where(u => u.UtilizadorID == data.RequerenteID).First();
+                user.Feedback = feed;
+                db.SaveChanges();
+
+
+            }
             return RedirectToAction("Index", new { flag = 0 });
 
 
