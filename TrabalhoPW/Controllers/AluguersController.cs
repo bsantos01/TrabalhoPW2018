@@ -108,7 +108,7 @@ namespace TrabalhoPW.Controllers
                 ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name), "UtilizadorID", "Nome");
             }
             else {
-                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" || m.Tipo != "Especialista"), "UtilizadorID", "Nome");
+                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Tipo != "Especialista"), "UtilizadorID", "Nome");
             }
             ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
 

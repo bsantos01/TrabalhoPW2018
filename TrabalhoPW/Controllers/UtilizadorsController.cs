@@ -22,11 +22,21 @@ namespace TrabalhoPW.Controllers
         {
             return View(db.Utilizador.ToList());
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult Validar()
         {
             var validacoes = db.Utilizador.Where(s => s.Valido == false);
             return View(validacoes.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Validate(int id) {
+            var user = db.Utilizador.First(a => a.UtilizadorID == id);
+            user.Valido = true;
+
+            db.SaveChanges();
+            return RedirectToAction("Validar");
         }
 
 
