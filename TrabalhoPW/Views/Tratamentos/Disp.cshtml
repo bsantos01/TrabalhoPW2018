@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TrabalhoPW.Models.Tratamento>
+
+@{
+    ViewBag.Title = "Disp";
+}
+
+<h2>Disp</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Objeto.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Objeto.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Desc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.TratID }) |
+            @Html.ActionLink("Remover", "Delete", new { id=item.TratID })
+        </td>
+    </tr>
+}
+
+</table>

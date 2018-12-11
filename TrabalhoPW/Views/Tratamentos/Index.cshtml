@@ -6,7 +6,7 @@
 
 
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Criar Novo", "Create")
     </p>
     <table class="table">
         <tr>
@@ -34,9 +34,9 @@
                 @Html.DisplayFor(modelItem => item.Data)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.TratID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.TratID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.TratID })
+                @Html.ActionLink("Editar", "Edit", new { id=item.TratID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id=item.TratID }) |
+                @Html.ActionLink("Remover", "Delete", new { id=item.TratID })
             </td>
         </tr>
     }

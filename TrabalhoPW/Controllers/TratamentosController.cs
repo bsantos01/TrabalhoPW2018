@@ -30,7 +30,7 @@ namespace TrabalhoPW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tratamento tratamento = db.Tratamento.Find(id);
+            Tratamento tratamento = db.Tratamento.Include(a => a.Objeto).Where(m => m.TratID == id).First();
             if (tratamento == null)
             {
                 return HttpNotFound();
@@ -73,7 +73,7 @@ namespace TrabalhoPW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tratamento tratamento = db.Tratamento.Find(id);
+            Tratamento tratamento = db.Tratamento.Include(a => a.Objeto).Where(m => m.TratID == id).First();
             if (tratamento == null)
             {
                 return HttpNotFound();
@@ -107,7 +107,7 @@ namespace TrabalhoPW.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tratamento tratamento = db.Tratamento.Find(id);
+            Tratamento tratamento = db.Tratamento.Include(a => a.Objeto).Where(m => m.TratID == id).First(); 
             if (tratamento == null)
             {
                 return HttpNotFound();
@@ -124,6 +124,15 @@ namespace TrabalhoPW.Controllers
             db.Tratamento.Remove(tratamento);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public ActionResult Disp(int id)
+        {
+
+            var l = db.Tratamento.Include(p=> p.Objeto).Where(m => m.ObjID == id); 
+
+            return View(l.ToList());
         }
 
         protected override void Dispose(bool disposing)

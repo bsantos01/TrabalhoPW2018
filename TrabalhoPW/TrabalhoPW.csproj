@@ -447,6 +447,7 @@
     <Content Include="Views\Home\EditH.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Objetoes\Disp.cshtml" />
+    <Content Include="Views\Tratamentos\Disp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

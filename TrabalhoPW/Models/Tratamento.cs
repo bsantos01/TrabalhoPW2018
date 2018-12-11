@@ -14,13 +14,13 @@ namespace TrabalhoPW.Models
 
         [Required]
         [MaxLength(200)]
-        [Display(Name = "Descrição de Tratamento")]
+        [Display(Name = "Descrição")]
         public string Desc { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data de Tratamento")]
+        [Display(Name = "Data")]
         public DateTime Data { get; set; }
 
         [ForeignKey("Objeto")]
