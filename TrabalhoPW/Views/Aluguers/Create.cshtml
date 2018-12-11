@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Criar Novo Aluguer</h2>
 
 
 @using (Html.BeginForm()) 
@@ -83,22 +83,20 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" class="btn btn-default" />    
+            @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+            {
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Index",new { flag=0})';return false;">Lista de Alugueres</button>
+                }
+                else
+                {
+                    <button class="btn btn-default" onclick="location.href='@Url.Action("Index",new { flag=5})';return false;">Lista de Alugueres</button>
+                }
         </div>
     </div>
 </div>
 }
 
-<div>
-    @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
-    {
-        @Html.ActionLink("Lista de Alugueres", "Index", new { flag = 0 })
-    }
-    else
-    {
-        @Html.ActionLink("Lista de Alugueres", "Index", new { flag = 5 })
-    }
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

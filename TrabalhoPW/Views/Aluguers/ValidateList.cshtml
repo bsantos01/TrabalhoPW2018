@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Validate</h2>
+<h2>Validações</h2>
 
 @if(ViewBag.error!= null) { 
 <div class="validation-summary-errors text-danger">
@@ -59,8 +59,8 @@
             @Html.DisplayFor(modelItem => item.Requerente.Feedback)
         </td>
         <td>
-            @Html.ActionLink("Validar", "Validate", new { id=item.AluguerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AluguerID })
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Validate",new { id = item.AluguerID})';return false;">Validar</button>
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Delete",new { id = item.AluguerID})';return false;">Eliminar</button>
         </td>
     </tr>
 }

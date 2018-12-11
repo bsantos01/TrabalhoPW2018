@@ -41,7 +41,7 @@
     
             <div class="form-actions no-color">
                 <input type="submit" value="Apagar" class="btn btn-default" /> |
-                @Html.ActionLink("Voltar Atrás", "Index")
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;">Validar</button>
             </div>
         }
     </div>

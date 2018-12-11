@@ -74,11 +74,11 @@
         }
 
     </dl>
-    <button onclick="location.href='@Url.Action("ChangePassword", "Manage")';return false;">Alterar Password</button>
-    <button onclick="location.href='@Url.Action("Edit", new { id= Model.UtilizadorID})';return false;">Editar Perfil</button>
+    <button class="btn btn-default" onclick="location.href='@Url.Action("ChangePassword", "Manage")';return false;">Alterar Password</button>
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", new { id= Model.UtilizadorID})';return false;">Editar Perfil</button>
     @if (User.IsInRole("Admin"))
     {
-        <button onclick="location.href='@Url.Action("Index")';return false;">Voltar a lista</button>
+        <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;">Voltar</button>
     }
 
 </div>

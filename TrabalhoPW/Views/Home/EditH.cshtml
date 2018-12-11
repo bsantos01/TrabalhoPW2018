@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditH</h2>
+<h2>Editar Textos HomePage</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -36,7 +34,7 @@
             @Html.DisplayFor(modelItem => item.Conteudo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TextID }) |
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Edit",new { id = item.TextID})';return false;">Editar</button>
         </td>
     </tr>
 }

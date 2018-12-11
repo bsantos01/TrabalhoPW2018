@@ -62,8 +62,8 @@
             </td>
 
             <td>
-                @Html.ActionLink("Validar", "Validate", new { id = item.UtilizadorID }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.UtilizadorID })
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Validate", new { id = item.UtilizadorID })';return false;">Validar</button>
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Delete", new { id = item.UtilizadorID })';return false;">Remover</button>
             </td>
         </tr>
     }

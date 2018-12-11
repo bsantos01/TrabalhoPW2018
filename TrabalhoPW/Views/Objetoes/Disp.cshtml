@@ -8,7 +8,7 @@
 <h2>Disponibilidade do objeto @Model.ElementAt(0).Objeto.Tipo</h2>
 
 <p>
-    As datas abaixo encontram-se disponiveis para alugar o objeto.
+    As datas abaixo encontram-se indisponiveis para alugar o objeto.
 </p>
 <table class="table">
     <tr>
@@ -16,6 +16,7 @@
         <th>
             @Html.DisplayNameFor(model => model.DataIncio)
         </th>
+        <th>---></th>
         <th>
             @Html.DisplayNameFor(model => model.DataFim)
         </th>
@@ -38,5 +39,5 @@
 
 </table>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;">Voltar</button>
 </p>

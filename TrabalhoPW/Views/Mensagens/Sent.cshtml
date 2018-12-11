@@ -9,7 +9,7 @@
 <h2>Sent</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Create" )';return false;">Criar Nova</button>
 </p>
 <table class="table">
     <tr>
@@ -38,8 +38,10 @@
                 @Html.DisplayFor(modelItem => item.data)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.MensagemID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MensagemID })
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Details",new { id = item.MensagemID} )';return false;">Detalhes</button>
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Delete",new { id = item.MensagemID} )';return false;">Remover</button>
+
+
             </td>
         </tr>
     }

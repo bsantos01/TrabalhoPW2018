@@ -8,7 +8,8 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Create" )';return false;">Criar Nova</button>
+    <br>
 </p>
 <table class="table">
     <tr>
@@ -37,7 +38,8 @@
             @Html.DisplayFor(modelItem => item.data)
         </td>
         <td>
-            @Html.ActionLink("Detalhes", "Details", new { id = item.MensagemID }) |@Html.ActionLink("Responder", "Create", new { i = item.RemNome})
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Details",new { id = item.MensagemID} )';return false;">Detalhes</button>
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Create",new { id = item.MensagemID} )';return false;">Responder</button>
         </td>
     </tr>
 }

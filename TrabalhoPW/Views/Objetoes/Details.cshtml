@@ -56,6 +56,7 @@
 <p>
     @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ObjID }) <a> | </a>}
-@Html.ActionLink("Back to List", "Index")
+      <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", new{ id = Model.ObjID })';return false;">Editar</button>
+     }
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;">Voltar</button>
 </p>

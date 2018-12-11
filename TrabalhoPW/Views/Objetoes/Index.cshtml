@@ -10,7 +10,7 @@
 @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
 {
     <p>
-        @Html.ActionLink("Criar Novo", "Create")
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Create")';return false;">Criar Novo Objeto</button>
     </p>
 }
     <table class="table">
@@ -62,25 +62,26 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
             }
-            <td>
+                <td>
 
-                @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
-                {
-                    @Html.ActionLink("Editar", "Edit", new { id = item.ObjID })<a> | </a>@Html.ActionLink("Remover", "Delete", new { id = item.ObjID }) <a> | </a>
-                    @Html.ActionLink("Ver todos os tratamentos", "Disp","Tratamentos",new { id = item.ObjID }, null);
-                }
-                else if (User.IsInRole("Membro"))
-                {
-                    @Html.ActionLink("Disponibilidade", "Disp", new { id = item.ObjID })<a> | </a>
-                    @Html.ActionLink("Alugar", "Create", "Aluguers", new { id = item.ObjID }, null)<a> | </a>
-                }
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.ActionLink("Detalhes", "Details", new { id = item.ObjID })
-                }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
+                    {
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", new { id = item.ObjID })';return false;">Editar</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Delete", new { id = item.ObjID })';return false;">Remover</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Disp","Tratamentos" ,new { id = item.ObjID }, null)';return false;">Tratamentos</button>
+                    }
+                    else if (User.IsInRole("Membro"))
+                    {
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Disp", new { id = item.ObjID })';return false;">Disponibilidade</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Create", new { id = item.ObjID })';return false;">Criar Aluguer</button>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Details", new { id = item.ObjID })';return false;">Detalhes</button>
+                    }
 
 
-            </td>
+                </td>
         </tr>
         }
 

@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <button class="btn btn-default" onclick="location.href='@Url.Action("Create")';return false;">Criar Novo</button>
 </p>
 <table class="table">
     <tr>
@@ -78,10 +78,12 @@
             @Html.DisplayFor(modelItem => item.Relatorio)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.AluguerID }) 
+            <button class="btn btn-default" onclick="location.href='@Url.Action("Details",new { id = item.AluguerID})';return false;">Detalhes</button>
+
             @if (User.IsInRole("Admin") || User.IsInRole("Especialista"))
             {
-                <a>|</a>  @Html.ActionLink("Edit", "Edit", new { id = item.AluguerID }) <a>|</a> @Html.ActionLink("Delete", "Delete", new { id = item.AluguerID })
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Edit",new { id = item.AluguerID})';return false;">Editar</button>
+                <button class="btn btn-default" onclick="location.href='@Url.Action("Delete",new { id = item.AluguerID})';return false;">Eliminar</button>
             }
         </td>
     </tr>
