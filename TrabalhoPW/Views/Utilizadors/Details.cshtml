@@ -66,17 +66,20 @@
         <dd>
             @Html.DisplayFor(model => model.UserID)
         </dd>
-        @if(User.IsInRole("Membro")){
+        @if (User.IsInRole("Membro"))
+        {
             <dd>
                 @Html.DisplayFor(model => model.Feedback) %
             </dd>
-            }
+        }
 
-        </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UtilizadorID }) 
-    @if (User.IsInRole("Admin")) { 
-    <a> | </a> @Html.ActionLink("Back to List", "Index")
+    </dl>
+    <button onclick="location.href='@Url.Action("ChangePassword", "Manage")';return false;">Alterar Password</button>
+    <button onclick="location.href='@Url.Action("Edit", new { id= Model.UtilizadorID})';return false;">Editar Perfil</button>
+    @if (User.IsInRole("Admin"))
+    {
+        <button onclick="location.href='@Url.Action("Index")';return false;">Voltar a lista</button>
     }
-</p>
+
+</div>
+
