@@ -30,7 +30,7 @@ namespace TrabalhoPW.Models
         public string Conteudo { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data da Mensagem")]
         public DateTime? data { get; set; }
     }
