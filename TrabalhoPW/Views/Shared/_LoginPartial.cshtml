@@ -7,7 +7,7 @@
 
    
         <li style="margin-left:20px">
-            @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Olá " + User.Identity.GetUserName() + "!", "Details", "Utilizadors")
         </li>
         <li><a style="color: #FF0000" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
 

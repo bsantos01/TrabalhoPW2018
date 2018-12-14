@@ -49,7 +49,7 @@ namespace TrabalhoPW.Controllers
             return RedirectToAction("Contact");
         }
 
-
+        [Authorize(Roles = "Admin, Especialista")]
         public ActionResult Edit(int id) {
 
             Texts text = db.Texts.Find(id);

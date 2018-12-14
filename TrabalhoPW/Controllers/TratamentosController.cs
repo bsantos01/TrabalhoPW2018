@@ -23,7 +23,6 @@ namespace TrabalhoPW.Controllers
 
         // GET: Tratamentos/Details/5
         [Authorize(Roles = "Especialista, Admin")]
-
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -40,7 +39,6 @@ namespace TrabalhoPW.Controllers
 
         // GET: Tratamentos/Create
         [Authorize(Roles = "Especialista, Admin")]
-
         public ActionResult Create()
         {
             ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
