@@ -64,9 +64,16 @@ namespace TrabalhoPW.Controllers
             }
             else
             {
-                ViewBag.DestinatarioID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Nome != User.Identity.Name), "UtilizadorID", "Nome");
+                if (User.IsInRole("Especialista"))
+                { 
+                ViewBag.DestinatarioID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Tipo=="Membro" && m.Nome != User.Identity.Name), "UtilizadorID", "Nome");
+                }
+                else
+                {
+                    ViewBag.DestinatarioID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Tipo == "Especialista" && m.Nome != User.Identity.Name), "UtilizadorID", "Nome");
+                }
             }
-                return View();
+            return View();
  
         }
 
