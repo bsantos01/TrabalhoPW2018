@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -71,10 +72,13 @@ namespace TrabalhoPW.Controllers
             if (id == null)
             {
                 utilizador = (Utilizador)db.Utilizador.Where(m => m.Nome == User.Identity.Name).First();
+             //   ViewBag.Roles = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name).ToList(), "Tipo", "Tipo");
                 return View(utilizador);
             }
-            else { 
+            else { //se for chamado pelo admin
              utilizador = db.Utilizador.Find(id);
+                ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+
                 if (utilizador == null)
                 {
                  return HttpNotFound();
@@ -99,13 +103,19 @@ namespace TrabalhoPW.Controllers
             user.BI = utilizador.BI;
             user.NIF = utilizador.NIF;
             user.Email = utilizador.Email;
-            if (utilizador.Tipo != null) {
+            if (utilizador.Tipo != user.Tipo) {
+                ApplicationDbContext contextt = new ApplicationDbContext();
+
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(contextt));
+                UserManager.RemoveFromRole(user.UserID, user.Tipo);
+                UserManager.AddToRole(user.UserID, utilizador.Tipo);
                 user.Tipo = utilizador.Tipo;
-                user.Valido = utilizador.Valido;
+                
             }
             db.SaveChanges();
-               
-            
+
+            ViewBag.Roles = new SelectList(db.Roles.ToList(), "Name", "Name");
+
             return View(utilizador);
         }
 

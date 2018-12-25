@@ -32,7 +32,7 @@
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                            <p>Lembrar-me</p>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
+                    @Html.ActionLink("Registar novo utilizador", "Register")
                 </p>
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>

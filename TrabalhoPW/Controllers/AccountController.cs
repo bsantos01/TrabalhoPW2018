@@ -156,8 +156,14 @@ namespace TrabalhoPW.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(Context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
-
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.Name = new SelectList(Context.Roles.ToList(), "Name", "Name");
+            }
+            else
+            {
+                ViewBag.Name = new SelectList(Context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            }
             return View();
         }
 

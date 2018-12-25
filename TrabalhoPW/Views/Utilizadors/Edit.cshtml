@@ -62,8 +62,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tipo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+                @Html.DropDownList("Tipo", (SelectList)ViewBag.Roles, "Selecione Perfil", new { @class = "form-control" })
             </div>
         </div>
 
@@ -79,7 +78,7 @@
     }
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Salvar" class="btn btn-default" />
             <button class="btn btn-default" onclick="location.href='@Url.Action("Index")';return false;">Voltar</button>
 
         </div>
