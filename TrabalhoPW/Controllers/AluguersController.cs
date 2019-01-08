@@ -109,7 +109,7 @@ namespace TrabalhoPW.Controllers
                 ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Nome == User.Identity.Name), "UtilizadorID", "Nome");
             }
             else {
-                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Tipo != "Especialista"), "UtilizadorID", "Nome");
+                ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.Tipo != "Admin" && m.Tipo != "Especialista" && m.Valido==true), "UtilizadorID", "Nome");
             }
             ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
 
@@ -125,11 +125,17 @@ namespace TrabalhoPW.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (aluguer.DataIncio >= aluguer.DataFim) {
+                    ModelState.AddModelError("", "Datas Inconsistentes");
+                    ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m => m.UtilizadorID == aluguer.RequerenteID), "UtilizadorID", "Nome");
+                    ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo");
+                    return View(aluguer);
+                }
                 var list = db.Aluguer.Where(m => m.Validado).ToList();
                 foreach (Aluguer item in list)
                 {
                     if((aluguer.DataIncio >= item.DataIncio && aluguer.DataIncio<= item.DataFim)
-                        || (aluguer.DataFim >= aluguer.DataIncio && aluguer.DataFim <= item.DataFim))
+                        || (aluguer.DataFim >= item.DataIncio && aluguer.DataFim <= item.DataFim))
                     {
                         ModelState.AddModelError("", "Data Indisponivel para emprestimo");
                         ViewBag.RequerenteID = new SelectList(db.Utilizador.Where(m=> m.UtilizadorID == aluguer.RequerenteID), "UtilizadorID", "Nome");
@@ -176,6 +182,7 @@ namespace TrabalhoPW.Controllers
             Aluguer data = (Aluguer)db.Aluguer.Where(m => m.AluguerID == aluguer.AluguerID).First();
             data.EstadoF = aluguer.EstadoF;
             data.Relatorio = aluguer.Relatorio;
+            data.EstadoI = aluguer.EstadoI;
 
             if(aluguer.DataEntrega!=null)
             {
@@ -194,9 +201,11 @@ namespace TrabalhoPW.Controllers
                     if (a.DataEntrega != null && a.EstadoF != 0)
                     {
                         c++;
-                        if (a.DataEntrega != null && a.DataEntrega < a.DataFim && a.EstadoF >= a.EstadoI)
+                        if (a.DataEntrega != null && a.DataEntrega < a.DataFim)
                         {
+                            if(a.EstadoF <= a.EstadoI) { 
                             points++;
+                            }
                         }
                     }
                 }

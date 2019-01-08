@@ -17,47 +17,19 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.AluguerID)
+    @Html.HiddenFor(model => model.ObjID)
+    @Html.HiddenFor(model => model.DataIncio)
+    @Html.HiddenFor(model => model.DataFim)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ObjID, "ObjID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("ObjID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
-            @Html.ValidationMessageFor(model => model.ObjID, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RequerenteID, "RequerenteID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("RequerenteID", null, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
-            @Html.ValidationMessageFor(model => model.RequerenteID, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.DataIncio, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DataIncio.Value, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.DataIncio, "", new { @class = "text-danger" })
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DataFim, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DataFim.Value, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.DataFim, "", new { @class = "text-danger" })
-
-        </div>
-    </div>
-
+    
     <div class="form-group">
         @Html.LabelFor(model => model.Validado, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
                 @Html.DisplayFor(model => model.Validado)
-         
+
             </div>
         </div>
     </div>

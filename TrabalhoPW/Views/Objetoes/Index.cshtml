@@ -73,7 +73,7 @@
                     else if (User.IsInRole("Membro"))
                     {
                         <button class="btn btn-default" onclick="location.href='@Url.Action("Disp", new { id = item.ObjID })';return false;">Disponibilidade</button>
-                        <button class="btn btn-default" onclick="location.href='@Url.Action("Create", new { id = item.ObjID })';return false;">Criar Aluguer</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Create", "Aluguers", new { id = item.ObjID })';return false;">Criar Aluguer</button>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
