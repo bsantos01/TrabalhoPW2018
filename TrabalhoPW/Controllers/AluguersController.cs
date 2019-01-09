@@ -37,7 +37,7 @@ namespace TrabalhoPW.Controllers
                 case 4: //lista de Alugueres a decorrer
                     aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.DataEntrega == null && m.Validado==true);
                     return View(aluguer.ToList());
-                case 5:
+                case 5://lista de alugueres do utilizador corrente
                     aluguer = db.Aluguer.Include(a => a.Objeto).Include(a => a.Requerente).Where(m => m.Requerente.Nome == User.Identity.Name);
                     return View(aluguer.ToList());
                 default:
@@ -145,7 +145,13 @@ namespace TrabalhoPW.Controllers
                 }
                 db.Aluguer.Add(aluguer);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { flag=0});
+                if (User.IsInRole("Membro")) {
+                    return RedirectToAction("Index", new { flag = 5 });
+
+                }
+                else { 
+                    return RedirectToAction("Index", new { flag=0});
+                }
             }
 
             ViewBag.ObjID = new SelectList(db.Objeto, "ObjID", "Tipo", aluguer.ObjID);
@@ -201,7 +207,7 @@ namespace TrabalhoPW.Controllers
                     if (a.DataEntrega != null && a.EstadoF != 0)
                     {
                         c++;
-                        if (a.DataEntrega != null && a.DataEntrega < a.DataFim)
+                        if (a.DataEntrega != null && a.DataEntrega <= a.DataFim)
                         {
                             if(a.EstadoF <= a.EstadoI) { 
                             points++;

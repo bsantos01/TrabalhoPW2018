@@ -68,6 +68,9 @@
         </dd>
         @if (User.IsInRole("Membro"))
         {
+            <dt>
+                Feedback
+            </dt>
             <dd>
                 @Html.DisplayFor(model => model.Feedback) %
             </dd>
